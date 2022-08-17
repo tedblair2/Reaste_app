@@ -72,8 +72,8 @@ def index():
 
 @app.route("/content", methods=['POST'])
 def content():
-    post = request.form.get('postid')
-    id = listhouses.index(post)
+    postid = request.form.get('postid')
+    id = listhouses.index(postid)
 
     scores = list(enumerate(cs[id]))
     sorted_list = sorted(scores, key=lambda x: x[1], reverse=True)
@@ -85,9 +85,9 @@ def content():
     j = 0
     for item in sorted_list:
         location = houses[houses.id == item[0]]['location'].values[0]
-        postid = houses[houses.id == item[0]]['postid'].values[0]
+        posts = houses[houses.id == item[0]]['postid'].values[0]
 
-        df.loc[len(df)] = [postid, location, j + 1]
+        df.loc[len(df)] = [posts, location, j + 1]
         j = j + 1
         if j > 4:
             break
@@ -101,7 +101,7 @@ def content():
     #results.extend(tolist)
     #results = list(dict.fromkeys(results))
 
-    return jsonify({'posts': results})
+    return jsonify({'postlist': results})
 
 
 @app.route("/collaborative", methods=['POST'])
