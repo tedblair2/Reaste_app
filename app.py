@@ -72,7 +72,7 @@ def index():
 
 @app.route("/content", methods=['POST'])
 def content():
-    post = request.form.get('post')
+    post = request.form.get('postid')
     id = listhouses.index(post)
 
     scores = list(enumerate(cs[id]))
